@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function() {
    
 });
 
-//Auth route
+//Auth routeeee
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
