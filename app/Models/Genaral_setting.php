@@ -10,3 +10,5 @@ class Genaral_setting extends Model
 {
     use HasFactory,SoftDeletes;
 }
+
+ 

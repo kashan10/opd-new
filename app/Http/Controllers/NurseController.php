@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Nurse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class NurseController extends Controller
 {
@@ -21,6 +24,9 @@ class NurseController extends Controller
     public function index()
     {
         //
+        $nurse = Nurse::latest()->paginate(5);
+        return view('nurse.index',compact('nurse'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -28,9 +34,30 @@ class NurseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        request()->validate([
+            'name'=> 'required',
+            'email'=> 'required',
+            'phone'=> 'required',
+            'speciality' => 'required',
+            'department_id' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+    
+        $nurUser = new User();
+        $nurUser->name = request('name');
+        $nurUser->email = request('email');
+        $nurUser->phone = request('phone');
+        $nurUser->password = Hash::make(request('password'));
+     
+        $nurUser->save();
+        
+        Nurse::create($request->all());
+    
+        return redirect()->route('nurse.index')
+                        ->with('success','Nurse created successfully.');
     }
 
     /**
@@ -42,6 +69,7 @@ class NurseController extends Controller
     public function store(Request $request)
     {
         //
+        return view('nurse.show',compact('product'));
     }
 
     /**
@@ -50,9 +78,10 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Nurse $nurse)
     {
         //
+        return view('nurse.show',compact('nurse'));
     }
 
     /**
@@ -61,9 +90,10 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Nurse $nurse)
     {
         //
+        return view('nurse.edit',compact('nurse'));
     }
 
     /**
@@ -73,9 +103,19 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Nurse $nurse)
     {
         //
+        request()->validate([
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+    
+        $nurse->update($request->all());
+    
+        return redirect()->route('nurse.index')
+                        ->with('success','Nurse updated successfully');
+
     }
 
     /**
@@ -84,8 +124,13 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Nurse $nurse)
     {
         //
+
+        $nurse->delete();
+    
+        return redirect()->route('nurse.index')
+                        ->with('success','Nurse deleted successfully');
     }
 }
