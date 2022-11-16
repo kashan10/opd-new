@@ -9,4 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Nurse extends Model
 {
     use HasFactory,SoftDeletes;
+
+    
+    public function user()
+    {
+       return $this->belongsTo(User::class);
+    }
+
+    public function clinic(){
+
+        return $this->hasMany(Clinic::class);
+    }
 }

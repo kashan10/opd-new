@@ -14,4 +14,8 @@ class Record extends Model
     {
         return $this->belongsTo(Patient::class);
     }
+    public function Appoinment()
+    {
+        return $this->belongsTo(Record::class);
+    }
 }

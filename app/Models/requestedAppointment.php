@@ -11,5 +11,12 @@ class requestedAppointment extends Model
 {
     use HasFactory,SoftDeletes;
 
-    
+    public function appoinment(){
+        return $this->hasOne(Appointment::class);
+    }
+
+    public function clinic(){
+        return $this->belongsTo(Clinic::class);
+    }
+
 }

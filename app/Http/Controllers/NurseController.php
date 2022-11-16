@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Nurse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class NurseController extends Controller
 {
@@ -20,7 +23,10 @@ class NurseController extends Controller
     }
     public function index()
     {
-        //
+        //page field is defined in the request
+        $nurses = Nurse::latest()->paginate(5);
+        return view('admin.nurses.index',compact('nurses'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -28,9 +34,23 @@ class NurseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        request()->validate([
+            'name'=> 'required',
+            'email'=> 'required',
+            'phone'=> 'required',
+            'speciality' => 'required',
+            'department_id' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+    
+        
+        Nurse::create($request->all());
+    
+        return redirect()->route('admin.nurses.index')
+                        ->with('success','Nurse created successfully.');
     }
 
     /**
@@ -39,9 +59,10 @@ class NurseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $nurse)
     {
         //
+        return view('admin.nurses.show',compact('nurse'));
     }
 
     /**
@@ -50,9 +71,10 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Nurse $nurse)
     {
         //
+        return view('admin.nurses.show',compact('nurse'));
     }
 
     /**
@@ -61,9 +83,10 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Nurse $nurse)
     {
         //
+        return view('admin.nurses.edit',compact('nurse'));
     }
 
     /**
@@ -73,9 +96,23 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Nurse $nurse)
     {
         //
+        request()->validate([
+            'name'=> 'required',
+            'email'=> 'required',
+            'phone'=> 'required',
+            'speciality' => 'required',
+            'department_id' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+    
+        $nurse->update($request->all());
+    
+        return redirect()->route('admin.nurses.index')
+                        ->with('success','Nurse updated successfully');
+
     }
 
     /**
@@ -84,8 +121,13 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Nurse $nurse)
     {
         //
+
+        $nurse->delete();
+    
+        return redirect()->route('admin.nurses.index')
+                        ->with('success','Nurse deleted successfully');
     }
 }

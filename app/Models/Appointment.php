@@ -15,4 +15,16 @@ class Appointment extends Model
     public function patient(){
         return $this->belongsTo(Patient::class);
     }
+
+    public function reqappoinment(){
+        return $this->belongsTo(requestedAppointment::class);
+    }
+
+    public function records(){
+        return $this->hasOne(Record::class);
+    }
+
+    public function systemoperetors(){
+        return $this->belongsTo(Systemoperetor::class);
+    }
 }
