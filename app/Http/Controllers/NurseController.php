@@ -23,9 +23,9 @@ class NurseController extends Controller
     }
     public function index()
     {
-        //
-        $nurse = Nurse::latest()->paginate(5);
-        return view('nurse.index',compact('nurse'))
+        //page field is defined in the request
+        $nurses = Nurse::latest()->paginate(5);
+        return view('admin.nurses.index',compact('nurses'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -46,17 +46,10 @@ class NurseController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
     
-        $nurUser = new User();
-        $nurUser->name = request('name');
-        $nurUser->email = request('email');
-        $nurUser->phone = request('phone');
-        $nurUser->password = Hash::make(request('password'));
-     
-        $nurUser->save();
         
         Nurse::create($request->all());
     
-        return redirect()->route('nurse.index')
+        return redirect()->route('admin.nurses.index')
                         ->with('success','Nurse created successfully.');
     }
 
@@ -66,10 +59,10 @@ class NurseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $nurse)
     {
         //
-        return view('nurse.show',compact('product'));
+        return view('admin.nurses.show',compact('nurse'));
     }
 
     /**
@@ -81,7 +74,7 @@ class NurseController extends Controller
     public function show(Nurse $nurse)
     {
         //
-        return view('nurse.show',compact('nurse'));
+        return view('admin.nurses.show',compact('nurse'));
     }
 
     /**
@@ -93,7 +86,7 @@ class NurseController extends Controller
     public function edit(Nurse $nurse)
     {
         //
-        return view('nurse.edit',compact('nurse'));
+        return view('admin.nurses.edit',compact('nurse'));
     }
 
     /**
@@ -107,13 +100,17 @@ class NurseController extends Controller
     {
         //
         request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'name'=> 'required',
+            'email'=> 'required',
+            'phone'=> 'required',
+            'speciality' => 'required',
+            'department_id' => 'required',
+            'password' => 'required|string|min:8|confirmed',
         ]);
     
         $nurse->update($request->all());
     
-        return redirect()->route('nurse.index')
+        return redirect()->route('admin.nurses.index')
                         ->with('success','Nurse updated successfully');
 
     }
@@ -130,7 +127,7 @@ class NurseController extends Controller
 
         $nurse->delete();
     
-        return redirect()->route('nurse.index')
+        return redirect()->route('admin.nurses.index')
                         ->with('success','Nurse deleted successfully');
     }
 }

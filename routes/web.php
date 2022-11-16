@@ -25,11 +25,17 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('photos', NurseController::class);
-   
+    Route::resource('nurse', NurseController::class);
+    
 });
 
 //Auth routeeee
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/check', function () {
+    return view('admin.nurse.create');
+    
+});
