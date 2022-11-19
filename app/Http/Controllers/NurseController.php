@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Nurse;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class NurseController extends Controller
@@ -24,8 +25,26 @@ class NurseController extends Controller
     public function index()
     {
         //page field is defined in the request
-        $nurses = Nurse::latest()->paginate(5);
-        return view('admin.nurses.index',compact('nurses'))
+        $users = User::all();
+        $user_roles = [];
+        $user_nurse = [];
+        
+        
+            foreach ($users as $user) {
+            $user_roles=$user->getRoleNames();
+
+              if($user_roles[0] == "nurse"){
+
+                $user_nurse[] = User::find($user->id)->nurse;
+                
+              }
+            }
+
+
+           // dd($user_nurse);
+       
+       // $nurses = Nurse::latest()->paginate(5);
+        return view('admin.nurses.index',compact('user_nurse'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -34,23 +53,11 @@ class NurseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //
-        request()->validate([
-            'name'=> 'required',
-            'email'=> 'required',
-            'phone'=> 'required',
-            'speciality' => 'required',
-            'department_id' => 'required',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-    
+        return view('admin.nurses.create');
         
-        Nurse::create($request->all());
-    
-        return redirect()->route('admin.nurses.index')
-                        ->with('success','Nurse created successfully.');
     }
 
     /**
@@ -59,10 +66,28 @@ class NurseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $nurse)
+    public function store(Request $request)
     {
         //
-        return view('admin.nurses.show',compact('nurse'));
+        request()->validate([
+            'name'=> 'required',
+            'email'=> 'required',
+            'phone'=> 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+    
+        $user = new User;
+ 
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+        Nurse::create($request->all());
+    
+        return redirect()->route('admin.nurses.index')
+                        ->with('success','Nurse created successfully.');
     }
 
     /**
@@ -103,11 +128,19 @@ class NurseController extends Controller
             'name'=> 'required',
             'email'=> 'required',
             'phone'=> 'required',
-            'speciality' => 'required',
-            'department_id' => 'required',
             'password' => 'required|string|min:8|confirmed',
         ]);
     
+       
+ 
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        
+        
+        $nurse->user()->save($user);
+
         $nurse->update($request->all());
     
         return redirect()->route('admin.nurses.index')

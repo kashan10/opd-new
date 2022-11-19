@@ -13,7 +13,7 @@
             <div class="card-body" style="margin-bottom: 5px;padding-bottom: 0px;">
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-8">
-                        <div class="mb-3"><label class="form-label" for="service_name"><strong>Name&nbsp;</strong></label><input class="form-control" type="text" id="service_name" placeholder="Name service" name="service_name" required=""></div>
+                        <div class="mb-3"><label class="form-label" for="service_name"><strong>Name&nbsp;</strong></label><input class="form-control" type="text" id="service_name" placeholder="Name service" name="name" required=""></div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="mb-3"><label class="form-label" for="service_price"><strong>Age</strong><br></label><input class="form-control" type="number"></div>
@@ -35,6 +35,7 @@
                         <div class="form-check"><input class="form-check-input" type="radio" id="service_client_payment_validated-2" name="RadioOption" required=""><label class="form-check-label" for="service_client_payment_validated-2">Male</label></div>
                     </div>
                 </div>
+             
                 <div class="row mb-2">
                     <div class="col">
                         <div class="mb-3"><label class="form-label" for="service_client_start_date"><strong>Blood Group</strong><br></label><select class="form-select">

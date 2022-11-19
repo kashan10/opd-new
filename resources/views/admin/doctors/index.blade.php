@@ -1,9 +1,9 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container-fluid">
     @can('role-create')
-            <a class="btn btn-success" href="{{ route('nurse.create') }}"> Create New Nurse</a>
+            <a class="btn btn-success" href="{{ route('doctor.create') }}"> Create New Nurse</a>
      @endcan
     <div class="card shadow">
         <div class="card-header py-3">
@@ -37,31 +37,14 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($user_nurse as $nurse)    
+                    @foreach ($doctors as $key => $doctor)    
                         <tr>
-                            
                             <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar1.jpeg">Airi Satou</td>
-                            <td>{{$nurse->name}}</td>
-                            <td>{{$nurse->qualification}}</td>
-                            <td>{{$nurse->phone}}</td>
-                            <td>{{$nurse->address}}</td>
-                            <td>     
-                                <a class="btn btn-xs btn-primary" href="">
-                                    view
-                                </a>
-                            
-                                <a class="btn btn-xs btn-info" href="">
-                                    edit 
-                                </a>
-                           
-
-                          
-                                <form action="" method="POST" onsubmit="" style="display: inline-block;">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-xs btn-danger" value="delete">
-                                </form>
-                           </td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>33</td>
+                            <td>Cell 5</td>
+                            <td>2008/11/28</td>
                         </tr>
                     @endforeach   
 
