@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\DoctorController;
 
@@ -36,7 +37,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/check', function () {
-    return view('admin.nurse.create');
-    
-});
+Route::get('/check', [FrontController::class, 'get_current_appointmentno']);

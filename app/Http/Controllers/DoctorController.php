@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -16,9 +17,33 @@ class DoctorController extends Controller
     public function index()
     {
         //
-        $doctors = Doctor::latest()->paginate(5);
-        return view('admin.doctors.index',compact('doctors'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+    //page field is defined in the request
+    $users = User::all();
+    $user_roles = [];
+    $user_doctors = [];
+    $doctor = [];
+  
+    
+   
+        foreach ($users as $user) {
+        $user_roles=$user->getRoleNames();
+            
+          if($user_roles[0] == "doctor"){
+
+            $user_doctors[] = User::find($user->id)->doctor;
+            $duser[] = User::find($user->id);
+          }
+        }
+
+    
+          
+        //dd($user_doctors);
+
+        
+   
+   // $nurses = Nurse::latest()->paginate(5);
+    return view('admin.doctors.index',compact('user_doctors','duser'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -29,7 +54,21 @@ class DoctorController extends Controller
     public function create()
     {
         //$all_users_with_all_their_roles = User::with('roles')->get();
- 
+        //$users = User::all();
+        // $user_roles = [];
+        // $user_doctors = [];
+        // $doctor = [];
+
+        // foreach ($users as $user) {
+
+        // $user_roles=$user->getRoleNames();
+            
+        //   if($user_roles[0] == "doctor"){
+
+        //     $user_doctors[] = User::find($user->id)->doctor;
+        //     $duser[] = User::find($user->id);
+        //   }
+        // }
        
         return view('admin.doctors.create');
     }
@@ -42,7 +81,26 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        request()->validate([
+            'name'=> 'required',
+            'email'=> 'required',
+            'phone'=> 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+    
+        $user = new User;
+ 
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+        Doctor::create($request->all());
+    
+        return redirect()->route('admin.doctor.index')
+                        ->with('success','Doctor created successfully.');
     }
 
     /**

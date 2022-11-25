@@ -28,23 +28,28 @@ class NurseController extends Controller
         $users = User::all();
         $user_roles = [];
         $user_nurse = [];
+        $nuser = [];
+
         
-        
+       
             foreach ($users as $user) {
             $user_roles=$user->getRoleNames();
-
+                
               if($user_roles[0] == "nurse"){
 
                 $user_nurse[] = User::find($user->id)->nurse;
-                
+                $nuser[] = User::find($user->id);
               }
             }
 
+        
+              
+            //dd($nuser);
 
-           // dd($user_nurse);
+            
        
        // $nurses = Nurse::latest()->paginate(5);
-        return view('admin.nurses.index',compact('user_nurse'))
+        return view('admin.nurses.index',compact('user_nurse','nuser'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

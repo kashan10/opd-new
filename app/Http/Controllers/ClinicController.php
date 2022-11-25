@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clinic;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class ClinicController extends Controller
@@ -37,6 +38,9 @@ class ClinicController extends Controller
     public function create()
     {
         //
+        $doctor = Doctor::get();
+       
+        return view('admin.clinic.create',compact('doctor'));
     }
 
     /**
