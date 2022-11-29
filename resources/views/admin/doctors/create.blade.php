@@ -16,7 +16,8 @@
     <!-- Form creation -->
     <section>
     <div class="container">    
-    <form>
+    <form action="{{ route('doctor.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="card shadow mb-3">
                 <div class="card-header py-3">
                     <p class="text-primary m-0 fw-bold" style="align:center">Doctor Registration</p>
@@ -61,11 +62,11 @@
                     <div class="mb-3"><label class="form-label" for="gender"><strong>Gender:</strong><br></label>
                         <div class="form-group mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="service_client_payment_validated-2" name="gender" required>
+                                <input class="form-check-input" type="radio" id="service_client_payment_validated-2" name="gender" value="male" required>
                                 <label class="form-check-label" for="male">Male</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="service_client_payment_validated-1" name="gender" required>
+                                <input class="form-check-input" type="radio" id="service_client_payment_validated-1" name="gender" value="female" required>
                                 <label class="form-check-label" for="female">Female</label>
                             </div>
                             @error('gender')

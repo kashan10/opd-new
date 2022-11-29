@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NurseController;
+use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\DoctorController;
 
 /*
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('nurse', NurseController::class);
     Route::resource('doctor', DoctorController::class);
+    Route::resource('clinic', ClinicController::class);
 });
 
 //Auth routeeee
@@ -38,3 +40,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/check', [FrontController::class, 'get_current_appointmentno']);
+
+Route::get('/changeStatus', [UserController::class, 'changeStatus']);

@@ -63,6 +63,10 @@ class User extends Authenticatable
        return $this->hasOne(Systemoperetor::class);
     }
 
+    public function doctorClinic()
+    {
+        return $this->hasOneThrough(Clinic::class, Doctor::class);
+    }
     // public function role()
     // {
     //     return $this->belongsTo(Role::class);

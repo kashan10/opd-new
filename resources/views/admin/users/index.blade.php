@@ -53,11 +53,7 @@
         </td>
 
         <td>
-          <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-          <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-            {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-            {!! Form::close() !!}
+          <input data-id="{{$user->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $user->status ? 'checked' : '' }}>
         </td>
       </tr>
       @endforeach
@@ -69,5 +65,24 @@
 
 
 {!! $data->render() !!}
+
+<script>
+  $(function() {
+    $('.toggle-class').change(function() {
+        var status = $(this).prop('checked') == true ? 1 : 0; 
+        var user_id = $(this).data('id'); 
+         
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/changeStatus',
+            data: {'status': status, 'user_id': user_id},
+            success: function(data){
+              console.log(data.success)
+            }
+        });
+    })
+  })
+</script>
 
 @endsection

@@ -36,43 +36,38 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Nurse ID</th>
-                            <th>Age</th>
-                            <th>Gender</th>
+                            
                             <th>Address</th>
-                            <th>Email</th>
+                            
                             <th>Mobile_No</th>
-                            <th>Qualification</th>
-                            <th>Position</th>
+                            
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                    @foreach ($user_nurse as $index =>$nurse)      
+                    @foreach ($user_nurses as $nurse)      
                         <tr>
                             
-                            <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar1.jpeg">{{$nuser[$index]->name}}</td>
-                            <td>id</td>
+                            <td><img class="rounded-circle me-2" width="30" height="30" src="{{asset('images/'.$nurse->photo_path)}}">{{$nurse->name}}</td>
+                            
                             <td>{{$nurse->phone}}</td>
-                            <td>{{$nurse->gender}}</td>
+                            
                             <td>{{$nurse->address}}</td>
-                            <td>{{$nuser[$index]->email}}</td>
-                            <td>{{$nurse->phone}}</td>
-                            <td>{{$nurse->qualification}}</td>
-                            <td>{{$nurse->position}}</td>
+                         
+                            
                             <td>     
-                                <a class="btn btn-xs btn-primary" href="">
+                                <a class="btn btn-xs btn-primary" href="{{ route('nurse.show',$nurse->id) }}">
                                     view
                                 </a>
                             
-                                <a class="btn btn-xs btn-info" href="">
+                                <a class="btn btn-xs btn-info" href="{{ route('nurse.edit',$nurse->id) }}">
                                     edit 
                                 </a>
                            
 
                           
-                                <form action="" method="POST" onsubmit="" style="display: inline-block;">
+                                <form action="{{ route('nurse.destroy',$nurse->user_id) }}" method="POST" onsubmit="" style="display: inline-block;">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="submit" class="btn btn-xs btn-danger" value="delete">
@@ -85,14 +80,11 @@
                     <tfoot>
                         <tr>
                             <td><strong>Name</strong></td>
-                            <td><strong>Nurse ID</strong></td>
-                            <td><strong>Age</strong></td>
-                            <td><strong>Gender</strong></td>
+                  
                             <td><strong>Address</strong></td>
-                            <td><strong>Email</strong></td>
+                           
                             <td><strong>Mobile_No</strong></td>
-                            <td><strong>Qualification</strong></td>
-                            <td><strong>Position</strong></td>
+                            
                             <td><strong>Action</strong></td>
                         </tr>
                     </tfoot>

@@ -36,38 +36,32 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Age</th>
-                            <th>Gender</th>
                             <th>Address</th>
                             <th>Mobile_No</th>
-                            <th>Qualification</th>
-                            <th>Position</th>
+                            
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                    @foreach ($user_doctors as $index => $doctor)    
+                    @foreach ($user_doctors as $doctor)    
                         <tr>
-                            <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar1.jpeg">{{$duser[$index]->name}}</td>
-                            <td>age</td>
-                            <td>gender</td>
+                            <td><img class="rounded-circle me-2" width="30" height="30" src="{{asset('images/'.$doctor->photo_path)}}">{{$doctor->name}}</td>
+
                             <td><address>{{$doctor->address}}</address></td>
                             <td>{{$doctor->phone}}</td>
-                            <td>{{$doctor->specialization}}</td>
-                            <td>Position</td>
                             <td>     
-                                <a class="btn btn-xs btn-primary" href="">
+                                <a class="btn btn-xs btn-primary" href="{{ route('doctor.show',$doctor->id) }}">
                                     view
                                 </a>
                             
-                                <a class="btn btn-xs btn-info" href="">
+                                <a class="btn btn-xs btn-info" href="{{ route('doctor.edit',$doctor->id) }}">
                                     edit 
                                 </a>
                            
-
+                                
                           
-                                <form action="" method="POST" onsubmit="" style="display: inline-block;">
+                                <form action="{{ route('doctor.destroy',$doctor->user_id) }}" method="POST" onsubmit="" style="display: inline-block;">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="submit" class="btn btn-xs btn-danger" value="delete">
@@ -80,12 +74,11 @@
                     <tfoot>
                         <tr>
                             <td><strong>Name</strong></td>
-                            <td><strong>Age</strong></td>
-                            <td><strong>Gender</strong></td>
+                           
+                        
                             <td><strong>Address</strong></td>
                             <td><strong>Mobile_No</strong></td>
-                            <td><strong>Qualification</strong></td>
-                            <td><strong>Position</strong></td>
+                            
                             <td><strong>Action</strong></td>
                         </tr>
                     </tfoot>
@@ -97,15 +90,7 @@
                     <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
                 </div>
                 <div class="col-md-6">
-                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
-                        </ul>
-                    </nav>
+                 {!! $user_doctors->render() !!}
                 </div>
             </div>
         </div>
