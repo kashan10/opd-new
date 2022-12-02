@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("address");
             $table->string("qualification");
             $table->string("position");
-            $table->boolean('registered');
+            
             $table->string("photo_path");
             $table->timestamps();
             $table->softDeletes();

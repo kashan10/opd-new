@@ -5,11 +5,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('nurse.index') }}"> Back</a>
             </div><br>
 
             <div class="pull-left">
-                <h2> Show Role</h2>
+                <h2> Show nurse</h2>
             </div>
         </div>
     </div>
@@ -23,17 +23,13 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Name:</strong>
-                            {{ $role->name }}
+                            {{ $nuser->name }}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>Permissions:</strong><br>
-                            @if(!empty($rolePermissions))
-                                @foreach($rolePermissions as $v)
-                                    <label class="label label-success">{{ $v->name }},</label><br>
-                                @endforeach
-                            @endif
+                            <strong>nurse number:</strong><br>
+                            {{ $nurse->phone }}
                             <br>
                         </div>
                     </div>

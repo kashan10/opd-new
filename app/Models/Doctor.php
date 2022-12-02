@@ -20,4 +20,6 @@ class Doctor extends Model
 
         return $this->hasMany(Clinic::class);
     }
+
+    protected $guarded = [];
 }

@@ -15,9 +15,15 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained("users");
+            $table->foreignId("user_id")->references('id')->on('users')
+                ->onDelete('cascade');
+
             $table->string('address');
             $table->string('phone');
+            $table->string('NIC');
+            $table->string('age');
+            $table->string('gender');
+            $table->string('position');
             $table->string("specialization");
             $table->string("photo_path");
             $table->timestamps();

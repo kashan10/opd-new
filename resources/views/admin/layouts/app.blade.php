@@ -14,7 +14,36 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
+    
+
+   
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+    <!-- ======= Icons used for dropdown (you can use your own) ======== -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+    
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<style type="text/css">
+
+.sidebar li .submenu{ 
+	list-style: none; 
+	margin: 0; 
+	padding: 0; 
+	padding-left: 1rem; 
+	padding-right: 1rem;
+}
+.sidebar .nav-link {
+    font-weight: 500;
+    color: var(--bs-dark);
+}
+.sidebar .nav-link:hover {
+    color: var(--bs-primary);
+}
+
+</style>
 </head>
 <body>
     <div id="app">
@@ -70,12 +99,63 @@
                     </ul>
                 </div>
             </div>
+            
         </nav>
-
-        <main class="py-4">
+        
+        <section class="section-content py-3" >
+            <div class="container">
+            <div class="row" >
+        <aside class="col w-25" style="height: 100%" > 
+            <!-- ============= COMPONENT ============== -->
+            <nav class="sidebar card py-4 mb-3 mt-4 w-50">
+            <ul class="nav flex-column" id="nav_accordion" style="height: 100%">
+                
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item1" href="#"> Doctor <i class="bi small bi-caret-down-fill"></i> </a>
+                    <ul id="menu_item1" class="submenu collapse" data-bs-parent="#nav_accordion">
+                        <li><a class="nav-link" href="{{ route('doctor.index') }}">list </a></li>
+                        <li><a class="nav-link" href="{{ route('doctor.create') }}">Create </a></li>
+                    </ul>
+            
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item2" href="#"> Nurse <i class="bi small bi-caret-down-fill"></i> </a>
+                    <ul id="menu_item2" class="submenu collapse" data-bs-parent="#nav_accordion">
+                        <li><a class="nav-link" href="{{ route('nurse.index') }}">list </a></li>
+                        <li><a class="nav-link" href="{{ route('nurse.create') }}">Create </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item3" href="#"> Roles <i class="bi small bi-caret-down-fill"></i> </a>
+                    <ul id="menu_item3" class="submenu collapse" data-bs-parent="#nav_accordion">
+                        <li><a class="nav-link" href="{{ route('roles.index') }}">list </a></li>
+                        <li><a class="nav-link" href="{{ route('roles.create') }}">Create </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item4" href="#"> Users <i class="bi small bi-caret-down-fill"></i> </a>
+                    <ul id="menu_item4" class="submenu collapse" data-bs-parent="#nav_accordion">
+                        <li><a class="nav-link" href="{{ route('users.index') }}">list </a></li>
+                        <li><a class="nav-link" href="{{ route('users.create') }}">Create </a></li>
+                    </ul>
+                </li>
+                
+            </ul>
+            </nav>
+            <!-- ============= COMPONENT END// ============== -->	
+                    </aside>
+        <main class="col-lg-9 py-4" style="height: 100%">
+            
             @yield('content')
+          
         </main>
     </div>
+</div>
+    </section>
+
+    </div>
+    
+ 
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 </html>

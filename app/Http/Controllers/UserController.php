@@ -134,4 +134,13 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+
+    public function changeStatus(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->status = $request->status;
+        $user->save();
+  
+        return response()->json(['success'=>'Status change successfully.']);
+    }
 }

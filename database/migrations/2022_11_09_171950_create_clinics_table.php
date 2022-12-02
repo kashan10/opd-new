@@ -22,6 +22,7 @@ return new class extends Migration
             //$table->foreignId('appointment_id')->constrained('appointments');
             $table->date('date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

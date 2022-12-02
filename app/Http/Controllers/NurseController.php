@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Nurse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,27 +25,20 @@ class NurseController extends Controller
     }
     public function index()
     {
-        //page field is defined in the request
-        $users = User::all();
-        $user_roles = [];
-        $user_nurse = [];
-        
-        
-            foreach ($users as $user) {
-            $user_roles=$user->getRoleNames();
-
-              if($user_roles[0] == "nurse"){
-
-                $user_nurse[] = User::find($user->id)->nurse;
-                
-              }
-            }
+          //page field is defined in the request
+            $user_nurses = DB::table('users')
+            ->join('nurses', 'users.id', '=', 'nurses.user_id')
+            ->where('status', '=', 1)
+            ->select('users.*', 'nurses.*')
+            ->paginate(5);
+   
+ 
 
 
-           // dd($user_nurse);
-       
-       // $nurses = Nurse::latest()->paginate(5);
-        return view('admin.nurses.index',compact('user_nurse'))
+
+
+// $nurses = Nurse::latest()->paginate(5);
+            return view('admin.nurses.index',compact('user_nurses'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -74,6 +68,7 @@ class NurseController extends Controller
             'email'=> 'required',
             'phone'=> 'required',
             'password' => 'required|string|min:8|confirmed',
+            'file' => 'required',
         ]);
     
         $user = new User;
@@ -84,9 +79,33 @@ class NurseController extends Controller
 
         $user->save();
 
-        Nurse::create($request->all());
+        $nurse = new Nurse;
+        $nurse->phone = $request->phone;
+        $nurse->address = $request->address;
+        $nurse->gender = $request->gender;
+        $nurse->position = $request->position;
+        
+        //$nurse->NIC = $request->nic;
+        //$nurse->age = $request->age;
+        
+        $nurse->qualification = $request->qualification;
+
+        if($request->hasFile('file')) {
+        $imageName = time().'.'.$request->file->extension();  
+       
+        $request->file->move(public_path('images'), $imageName);
+
+        $nurse->photo_path = $imageName;
+            
+        }  
+        
+        $user->nurse()->save($nurse);
+
+        $user->assignRole('nurse');
     
-        return redirect()->route('admin.nurses.index')
+        
+    
+        return redirect()->route('nurse.index')
                         ->with('success','Nurse created successfully.');
     }
 
@@ -96,10 +115,12 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Nurse $nurse)
+    public function show($id)
     {
         //
-        return view('admin.nurses.show',compact('nurse'));
+        $nurse=Nurse::find($id);
+        $nuser=$nurse->user;
+        return view('admin.nurses.show',compact('nurse','nuser'));
     }
 
     /**
@@ -108,10 +129,11 @@ class NurseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Nurse $nurse)
+    public function edit($id)
     {
         //
-        return view('admin.nurses.edit',compact('nurse'));
+        $nurse=Nurse::find($id);
+        return view('nurses.edit',compact('nurse'));
     }
 
     /**
