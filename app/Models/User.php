@@ -65,7 +65,16 @@ class User extends Authenticatable
 
     public function doctorClinic()
     {
-        return $this->hasOneThrough(Clinic::class, Doctor::class);
+        return $this->hasOneThrough(
+            Clinic::class, 
+            Doctor::class,
+            'user_id',
+            'doctor_id',
+            'id',
+            'id'
+
+        
+        );
     }
     // public function role()
     // {

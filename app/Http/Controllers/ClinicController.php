@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Clinic;
 use App\Models\Doctor;
-use App\Models\User;
+use App\Models\Nurse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClinicController extends Controller
 {
@@ -26,11 +28,17 @@ class ClinicController extends Controller
     public function index()
     {
         //
-        $clinics = User::find(1);
+        
 
-        
-        
-//dd($clinic->);
+        $clinics = Clinic::join('doctors', 'clinics.doctor_id', '=', 'doctors.id')
+                    ->join('nurses', 'clinics.nurse_id', '=', 'nurses.id')
+                    ->join('users as do', 'do.id', '=', 'doctors.user_id')
+                    ->join('users as nu', 'nu.id', '=', 'nurses.user_id')
+                    ->select( 'clinics.*','do.name as doctor','nu.name as nurse')
+                    ->paginate(5);
+
+        //dd($clinics);
+
         return view('admin.clinic.index',compact('clinics'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -44,8 +52,9 @@ class ClinicController extends Controller
     {
         //
         $doctor = Doctor::get();
+        $nurse = Nurse::get();
        
-        return view('admin.clinic.create',compact('doctor'));
+        return view('admin.clinic.create',compact('doctor','nurse'));
     }
 
     /**
@@ -57,6 +66,23 @@ class ClinicController extends Controller
     public function store(Request $request)
     {
         //
+        dd($request);
+        request()->validate([
+            'name'=> 'required',
+            'doctor'=> 'required',
+            'nurse'=> 'required',
+            
+        ]);
+    
+        $clinic = new Clinic;
+ 
+        $clinic->name = $request->name;
+        $clinic->email = $request->email;
+        $clinic->email = $request->email;
+        
+
+        $clinic->save();
+        
     }
 
     /**

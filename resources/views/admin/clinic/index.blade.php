@@ -26,15 +26,17 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Name</th>
-            <th>Details</th>
+            <th>Doctor</th>
+            <th>Time</th>
+            <th>Date</th>
             <th width="280px">Action</th>
         </tr>
 	    @foreach ($clinics as $clinic)
 	    <tr>
 	        <td>{{ ++$i }}</td>
-	        <td>{{ $clinic->nurse->name }}</td>
-	        <td>{{ $clinic->doctor->name }}</td>
+	        <td>{{ $clinic->doctor }}</td>
+	        <td>{{ $clinic->time }}</td>
+            <td>{{ $clinic->date }}</td>
 	        <td>
                 <form action="{{ route('clinic.destroy',$clinic->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('clinic.show',$clinic->id) }}">Show</a>

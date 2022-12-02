@@ -8,6 +8,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\TypeaheadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/check', [FrontController::class, 'get_current_appointmentno']);
 
 Route::get('/changeStatus', [UserController::class, 'changeStatus']);
+
+Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
