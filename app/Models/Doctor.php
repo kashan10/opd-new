@@ -18,7 +18,8 @@ class Doctor extends Model
 
     public function clinic(){
 
-        return $this->hasMany(Clinic::class);
+       // return $this->hasMany(Clinic::class);
+        return $this->belongsToMany(Clinic::class, 'clinic_doctor' ,'doctor_id','clinic_id');
     }
 
     protected $guarded = [];

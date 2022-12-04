@@ -19,7 +19,7 @@
    
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <!-- ======= Icons used for dropdown (you can use your own) ======== -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
     
@@ -137,6 +137,13 @@
                     <ul id="menu_item4" class="submenu collapse" data-bs-parent="#nav_accordion">
                         <li><a class="nav-link" href="{{ route('users.index') }}">list </a></li>
                         <li><a class="nav-link" href="{{ route('users.create') }}">Create </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item5" href="#"> Clinic <i class="bi small bi-caret-down-fill"></i> </a>
+                    <ul id="menu_item5" class="submenu collapse" data-bs-parent="#nav_accordion">
+                        <li><a class="nav-link" href="{{ route('clinic.index') }}">list </a></li>
+                        <li><a class="nav-link" href="{{ route('clinic.create') }}">Create </a></li>
                     </ul>
                 </li>
                 

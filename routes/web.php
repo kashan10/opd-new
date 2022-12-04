@@ -44,4 +44,6 @@ Route::get('/check', [FrontController::class, 'get_current_appointmentno']);
 
 Route::get('/changeStatus', [UserController::class, 'changeStatus']);
 
-Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
+Route::get('/nurselist', [TypeaheadController::class, 'nurselist']);
+
+Route::get('/doctorlist', [TypeaheadController::class, 'doctorlist']);
