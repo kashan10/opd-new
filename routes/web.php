@@ -9,6 +9,7 @@ use App\Http\Controllers\NurseController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\TypeaheadController;
+use App\Http\Controllers\workplaneController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('nurse', NurseController::class);
     Route::resource('doctor', DoctorController::class);
     Route::resource('clinic', ClinicController::class);
+    Route::resource('workplane', workplaneController::class);
 });
 
 //Auth routeeee
@@ -47,3 +49,4 @@ Route::get('/changeStatus', [UserController::class, 'changeStatus']);
 Route::get('/nurselist', [TypeaheadController::class, 'nurselist']);
 
 Route::get('/doctorlist', [TypeaheadController::class, 'doctorlist']);
+Route::get('/no', [TypeaheadController::class, 'notif']);

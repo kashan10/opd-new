@@ -15,11 +15,32 @@
                             
                          </div>
                         <div class="form-group">
-                           <h1>doctors</h1> 
-                            @foreach ($clinic->doctor as $doctors)
-                            <p> {{ $doctors->user}}</p>
-                            <p> {{ $doctors}}</p>
-                            @endforeach
+                           <h1>doctors</h1>
+                           <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($clinic->doctor as $doctors)
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>{{ $doctors->user->name}}</td>
+                                <td>{{ $doctors->phone}}</td>
+                                
+                              </tr>
+                              @endforeach
+                              
+                            </tbody>
+                          </table> 
+                            
+                            <p> </p>
+                            <p> </p>
+                            
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

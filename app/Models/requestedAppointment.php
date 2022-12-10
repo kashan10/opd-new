@@ -19,4 +19,8 @@ class requestedAppointment extends Model
         return $this->belongsTo(Clinic::class);
     }
 
+    public function treatment(){
+        return $this->belongsTo(Treatment::class);
+    }
+
 }
