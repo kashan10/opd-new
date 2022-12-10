@@ -30,12 +30,7 @@ class ClinicController extends Controller
         //
         
 
-        $clinics = Clinic::join('doctors', 'clinics.doctor_id', '=', 'doctors.id')
-                    ->join('nurses', 'clinics.nurse_id', '=', 'nurses.id')
-                    ->join('users as do', 'do.id', '=', 'doctors.user_id')
-                    ->join('users as nu', 'nu.id', '=', 'nurses.user_id')
-                    ->select( 'clinics.*','do.name as doctor','nu.name as nurse')
-                    ->paginate(5);
+        $clinics = Clinic::paginate(5);
 
         //dd($clinics);
 
@@ -66,7 +61,7 @@ class ClinicController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request);
+        //dd($request);
         request()->validate([
             'name'=> 'required',
             'doctor'=> 'required',
@@ -75,13 +70,22 @@ class ClinicController extends Controller
         ]);
     
         $clinic = new Clinic;
- 
-        $clinic->name = $request->name;
-        $clinic->email = $request->email;
-        $clinic->email = $request->email;
+     
         
+        $clinic->date = $request->date;
+        $clinic->start = $request->start;
+        $clinic->end = $request->end;
+        $clinic->name = $request->name;
+       
 
-        $clinic->save();
+       $clinic->save();
+      
+       
+        $clinic->doctor()->attach($request->doctor);
+        $clinic->nurse()->attach($request->nurse);
+
+        return redirect()->route('clinic.index')
+                        ->with('success','clinic created successfully.');
         
     }
 
@@ -94,6 +98,10 @@ class ClinicController extends Controller
     public function show($id)
     {
         //
+        $clinic = Clinic::find($id);
+        
+        return view('admin.clinic.show',compact('clinic'));
+       
     }
 
     /**
@@ -105,6 +113,8 @@ class ClinicController extends Controller
     public function edit($id)
     {
         //
+        $clinic = Clinic::find($id);
+        return view('admin.clinic.edit',compact('clinic'));
     }
 
     /**
@@ -128,5 +138,13 @@ class ClinicController extends Controller
     public function destroy($id)
     {
         //
+        $clinic = Clinic::find($id);
+        $clinic->doctor()->detach();
+        $clinic->nurse()->detach();
+
+        $clinic->delete();
+
+        return redirect()->route('clinic.index')
+        ->with('success','Clinic deleted successfully');
     }
 }

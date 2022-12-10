@@ -18,7 +18,8 @@ class Nurse extends Model
 
     public function clinic(){
 
-        return $this->hasMany(Clinic::class);
+       // return $this->hasMany(Clinic::class);
+       return $this->belongsToMany(Clinic::class, 'clinic_nurse');
     }
 
     protected $guarded = [];

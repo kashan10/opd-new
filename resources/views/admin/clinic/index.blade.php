@@ -34,22 +34,22 @@
 	    @foreach ($clinics as $clinic)
 	    <tr>
 	        <td>{{ ++$i }}</td>
-	        <td>{{ $clinic->doctor }}</td>
-	        <td>{{ $clinic->time }}</td>
+	        <td>{{ $clinic->name }}</td>
+	        <td>{{ $clinic->start }}</td>
             <td>{{ $clinic->date }}</td>
 	        <td>
                 <form action="{{ route('clinic.destroy',$clinic->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('clinic.show',$clinic->id) }}">Show</a>
-                    @can('clinic-edit')
+                    
                     <a class="btn btn-primary" href="{{ route('clinic.edit',$clinic->id) }}">Edit</a>
-                    @endcan
+                    
 
 
                     @csrf
                     @method('DELETE')
-                    @can('clinic-delete')
+                   
                     <button type="submit" class="btn btn-danger">Delete</button>
-                    @endcan
+                   
                 </form>
 	        </td>
 	    </tr>

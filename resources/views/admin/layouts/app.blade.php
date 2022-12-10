@@ -16,10 +16,10 @@
     <!-- Scripts -->
     
 
-   
+    @livewireScripts
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <!-- ======= Icons used for dropdown (you can use your own) ======== -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
     
@@ -44,6 +44,7 @@
 }
 
 </style>
+
 </head>
 <body>
     <div id="app">
@@ -59,11 +60,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -78,6 +80,9 @@
                                 </li>
                             @endif
                         @else
+                            <li>
+                                <livewire:megaphone></livewire:megaphone>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -139,6 +144,13 @@
                         <li><a class="nav-link" href="{{ route('users.create') }}">Create </a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item5" href="#"> Clinic <i class="bi small bi-caret-down-fill"></i> </a>
+                    <ul id="menu_item5" class="submenu collapse" data-bs-parent="#nav_accordion">
+                        <li><a class="nav-link" href="{{ route('clinic.index') }}">list </a></li>
+                        <li><a class="nav-link" href="{{ route('clinic.create') }}">Create </a></li>
+                    </ul>
+                </li>
                 
             </ul>
             </nav>
@@ -155,7 +167,9 @@
 
     </div>
     
- 
+    <link rel="stylesheet" href="{{ asset('vendor/megaphone/css/megaphone.css') }}">
+    
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 </html>
