@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->string('address');
             $table->string('phone');
-            $table->string('NIC');
+            $table->string('nic');
             $table->string('age');
             $table->string('gender');
             $table->string('position');

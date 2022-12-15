@@ -24,7 +24,7 @@
     <script>
       $(document).ready(function () {
         // page is now ready, initialize the calendar...
-        
+        events ={!! json_encode($events) !!};
         $('#calendar').fullCalendar({
           // put your options and callbacks here
           events: events,

@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string("phone");
+            $table->string("nic");
             $table->string("gender");
             $table->string("address");
             $table->string("qualification");
             $table->string("position");
-            
+            $table->string("age");
             $table->string("photo_path");
             $table->timestamps();
             $table->softDeletes();

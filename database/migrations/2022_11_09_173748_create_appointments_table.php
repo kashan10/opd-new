@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained();
-            $table->foreignId('reqappointment_id')->constrained('requested_appointments');
-            $table->foreignId('operator_id')->constrained('systemoperators');
+            $table->foreignId('patient_id')->constrained('patients');
             $table->timestamp('intime');
             $table->string('appoinment_status')->nullable();
-            $table->string('appoinment_No');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

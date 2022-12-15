@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Time;
 use App\Models\Appointment;
+use App\Models\Clinic;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +21,27 @@ class AppointmentController extends Controller
     public function index()
     {
         //
+        $events = [];
+
+        $clinics = Clinic::get();
+
+        foreach ($clinics as $clinic) {
+            if (!$clinic->start) {
+                continue;
+            }
+
+            $events[] = [
+                'title' => $clinic->name ,
+                'start' => $clinic->date.'T'.$clinic->start,
+                'end' => $clinic->date.'T'.$clinic->start,
+                //'url'   => route('appointment.edit', $clinic->id),
+                'description'=> 'Lecture',
+                
+            ];
+        }
+//dd($events);
+        return view('admin.calender.index', compact('events'));
+
     }
 
     /**
@@ -28,6 +52,12 @@ class AppointmentController extends Controller
     public function create()
     {
         //
+        $treatment_time = Time::where('status', 1)
+                            ->latest()
+                            ->first();
+
+        return view('admin.appoinment.create','treatment_time');
+        
     }
 
     /**
@@ -42,18 +72,33 @@ class AppointmentController extends Controller
         
         DB::beginTransaction();
 
+        
         try {
+
+        
+        $treatment=Treatment::find($request->treatment_id);
+        $treatment_time = Carbon::createFromFormat('Y-m-d H:i', $request->start)->addMinutes($treatment->time)->toDateTimeString();
+
         $appointment = new Appointment();
+
         $appointment->start = $request->start;
-        $appointment->end = Carbon::createFromFormat('Y-m-d H:i', $request->start)->addMinutes($request->treatment_time)->toDateTimeString();
+        $appointment->end = $treatment_time;
         $appointment->patient_id = Auth::id();
         $appointment->treatment_id = $request->treatment_id;
         $appointment->unit = $request->unit;
         $appointment->note = $request->note;
-        $appointment->clinic_id = $clinic->id;
+        $appointment->clinic_id = $request->id;
 
 
         $appointment->save();
+       
+
+        $time = new Time();
+        $time->appointment_id = $appointment->id;
+        $time->stime = $request->start;
+        $time->etime = $treatment_time;
+        $time->save();
+
         // Incoming mail registration todo: I want to switch to database notification (Laravel)
         $mailType = 'confirm';
         $mailContent = $clinic->webAppointmentMails->firstWhere('type', $mailType);
