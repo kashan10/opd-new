@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained('users');
             $table->string("phone")->nullable();
             $table->string("address")->nullable();
+            $table->string("nic")->nullable();
             $table->string("gender")->nullable();
             $table->string("age")->nullable();
             $table->string('bloodgroup')->nullable();

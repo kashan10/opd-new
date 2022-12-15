@@ -171,5 +171,6 @@
     
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    @yield('scripts')
 </body>
 </html>

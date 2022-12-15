@@ -27,4 +27,8 @@ class Appointment extends Model
     public function systemoperetors(){
         return $this->belongsTo(Systemoperetor::class);
     }
+
+    public function time(){
+        return $this->hasOne(Time::class);
+    }
 }

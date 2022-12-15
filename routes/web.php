@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -8,8 +9,10 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TypeaheadController;
 use App\Http\Controllers\workplaneController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +35,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('nurse', NurseController::class);
     Route::resource('doctor', DoctorController::class);
+    Route::resource('patient', PatientController::class);
     Route::resource('clinic', ClinicController::class);
     Route::resource('workplane', workplaneController::class);
+    Route::resource('appointment', AppointmentController::class);
 });
 
 //Auth routeeee
