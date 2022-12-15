@@ -38,7 +38,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('patient', PatientController::class);
     Route::resource('clinic', ClinicController::class);
     Route::resource('workplane', workplaneController::class);
-    Route::resource('appointment', AppointmentController::class);
+    Route::get('appointment/{id}',[AppointmentController::class, 'create'])->name('appointment.create');
+    Route::resource('appointment', AppointmentController::class,['except' => 'create']);
+
 });
 
 //Auth routeeee
