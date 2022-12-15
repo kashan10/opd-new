@@ -34,7 +34,7 @@ class AppointmentController extends Controller
                 'title' => $clinic->name ,
                 'start' => $clinic->date.'T'.$clinic->start,
                 'end' => $clinic->date.'T'.$clinic->start,
-                //'url'   => route('appointment.edit', $clinic->id),
+                'url'   => route('appointment.create', $clinic->id),
                 'description'=> 'Lecture',
                 
             ];
@@ -49,14 +49,20 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        $treatment_time = Time::where('status', 1)
-                            ->latest()
-                            ->first();
+        
+        $treatments = Treatment::get();
+        $start_time =Time::select('etime')
+                        ->latest()
+                        ->take(1)
+                        ->get();
 
-        return view('admin.appoinment.create','treatment_time');
+        $start_time = json_decode(json_encode ( $start_time ) , true) ; 
+        $start_time = implode(',',$start_time[0]);
+        
+        return view('admin.appoinment.create',compact('treatments','id','start_time'));
         
     }
 
@@ -69,16 +75,18 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         //
-        
+        //dd($request);
         DB::beginTransaction();
 
         
         try {
 
         
-        $treatment=Treatment::find($request->treatment_id);
-        $treatment_time = Carbon::createFromFormat('Y-m-d H:i', $request->start)->addMinutes($treatment->time)->toDateTimeString();
-
+        $treatment=Treatment::find($request->treatment);
+        //dd($treatment);
+        
+        $treatment_time = Carbon::createFromFormat('H.i', $request->stime)->addMinutes($treatment->time)->toDateTimeString();
+        
         $appointment = new Appointment();
 
         $appointment->start = $request->start;
@@ -89,6 +97,7 @@ class AppointmentController extends Controller
         $appointment->note = $request->note;
         $appointment->clinic_id = $request->id;
 
+        dd($appointment->id);
 
         $appointment->save();
        
@@ -160,6 +169,7 @@ class AppointmentController extends Controller
     public function edit($id)
     {
         //
+        dd($id);
     }
 
     /**
