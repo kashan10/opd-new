@@ -56,4 +56,4 @@ Route::get('/changeStatus', [UserController::class, 'changeStatus']);
 Route::get('/nurselist', [TypeaheadController::class, 'nurselist']);
 
 Route::get('/doctorlist', [TypeaheadController::class, 'doctorlist']);
-Route::get('/no', [TypeaheadController::class, 'notif']);
+Route::post('/no', [TypeaheadController::class, 'notif']);

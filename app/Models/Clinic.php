@@ -26,6 +26,11 @@ class Clinic extends Model
         return $this->hasMany(requestedAppointment::class);
     }
 
+    public function mailTemplates()
+    {
+        return $this->hasMany(mail_template::class);
+    }
+
     protected $fillable = [
         'time',
         'doctor_id',
