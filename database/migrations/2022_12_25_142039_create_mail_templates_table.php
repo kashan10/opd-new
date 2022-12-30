@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('mail_templates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('patients');
-            $table->timestamp('intime');
-            $table->string('appoinment_status')->nullable();
+            $table->string('type');
+            $table->string('title')->nullable();
+            $table->text('body');
+            $table->foreignId('clinic_id')->constrained('clinics');
             $table->timestamps();
-            $table->softDeletes();
+            
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('mail_templates');
     }
 };

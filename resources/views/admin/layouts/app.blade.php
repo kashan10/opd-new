@@ -16,35 +16,30 @@
     <!-- Scripts -->
     
 
-    @livewireScripts
-    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+  
+    
     <!-- ======= Icons used for dropdown (you can use your own) ======== -->
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+   
     
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-<style type="text/css">
 
-.sidebar li .submenu{ 
-	list-style: none; 
-	margin: 0; 
-	padding: 0; 
-	padding-left: 1rem; 
-	padding-right: 1rem;
-}
-.sidebar .nav-link {
-    font-weight: 500;
-    color: var(--bs-dark);
-}
-.sidebar .nav-link:hover {
-    color: var(--bs-primary);
-}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
 
-</style>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('fonts/icomoon/style.css')}}">
+
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 <body>
     <div id="app">
@@ -80,9 +75,46 @@
                                 </li>
                             @endif
                         @else
-                            <li>
-                                <livewire:megaphone></livewire:megaphone>
-                            </li>
+                            <!-- Notifications -->
+                      <div class="container">
+                        <div class="row justify-content-center text-center">
+                          <div class="col-md">
+                            <div class="dropdown custom-dropdown" >
+                              <a href="#" data-toggle="dropdown" class="dropdown-link" aria-haspopup="true" aria-expanded="false">
+                                <span class="wrap-icon icon-notifications"></span>
+                                <span class="number"></span>
+                                
+                              </a>
+                  
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="width: 240px">
+                                <div class="title-wrap d-flex align-items-center">
+                                  <h3 class="title mb-0">Notifications</h3>
+                                  <a href="#" class="small ms-4">Mark all as read</a>
+                                </div>
+                  
+                                <ul class="custom-notifications">
+
+                                  
+                                </ul>
+                                <p class="text-center m-0 p-0"><a href="#" class="small">View All</a></p>
+                                <!-- <a href="#" class="dropdown-item">All Rources</a>
+                                <a href="#" class="dropdown-item">
+                                  <strong>Dropbox</strong>
+                                  <span>Lorem ipsum dolor sit amet harum.</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                  <strong>Google Drive</strong>
+                                  <span>Lorem ipsum dolor sit amet harum.</span>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                  <strong>Eventbrite</strong>
+                                  <span>Lorem ipsum dolor sit amet harum.</span>
+                                </a> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -166,11 +198,94 @@
     </section>
 
     </div>
+    <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}" ></script>
+    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
     
-    <link rel="stylesheet" href="{{ asset('vendor/megaphone/css/megaphone.css') }}">
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('js/main.js')}}"></script>
+    <script>
+      function load_unseen_notification(view = ''){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });   
+         $.ajax({
+            
+          url:"/no",
+          method:"POST",
+          data:{view:view},
+          dataType:"json",
+          success:function(data)
+          {
+            if(data.count > 0){
+            $(".custom-notifications").empty();
+            $.each(data.noti, function( k, v ) {
+        
+            var li = document.createElement("li");
+            li.classList.add("unread");
+            var a = document.createElement("a");
+            a.classList.add("d-flex");
+            a.setAttribute("href", "#");
+            var div = document.createElement("div");
+            div.classList.add("img");
+            div.classList.add("mr-3");
+            var img = document.createElement("img");
+            img.setAttribute("src", "{{asset('images/person_1.jpg')}}");
+            img.classList.add("img-fluid");
+            div.appendChild(img);
+            a.appendChild(div);
+            li.appendChild(a);
+            var div1 = document.createElement("div");
+            div1.classList.add("text");
+            div1.innerHTML = "<strong>Alex Stafford</strong> "+v.data.body;
+            a.appendChild(div1);
+            $(".custom-notifications").append(li);
+            });
+            
+            }
+            // else{
+            //     $(".custom-notifications").empty();
+            //     var li = document.createElement("li");
+            //         li.classList.add("unread");
+            //         li.innerHTML = "No Notification Found";
+            //         $(".custom-notifications").append(li);
+            // }
+           if(data.count > 0)
+           {
+
+            $('.number').html(data.count);
+
+           }
+           else{
+
+            $('.number').html('0');
+
+           }
+          }
+         });
+        }
+        
+        load_unseen_notification();
+
+        $(document).on('click', '.dropdown-link', function(){
+
+         $('.number').html('0');
+         load_unseen_notification('yes');
+              
+        });
+
+        setInterval(load_unseen_notification, 5000);
+
+    </script>
+   
+   
     
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
-    <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    
+    
     @yield('scripts')
+    
 </body>
 </html>

@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         $role->syncPermissions($permissions);
 
         $user = User::create([
-            'name' => Str::random(10),
+            'name' => 'kushan',
             'email' => Str::random(10).'@gmail.com',
             'password' => bcrypt('secret'),
         ]);
