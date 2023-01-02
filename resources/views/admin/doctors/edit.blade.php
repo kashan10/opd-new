@@ -38,8 +38,8 @@
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="mb-3"><label class="form-label" for="NIC"><strong>NIC:&nbsp;</strong></label>
-                            <input class="form-control" type="text" id="NIC" placeholder="751584753v" name="nic" maxlength="12" value="{{ $doctor->NIC }}" required>
+                        <div class="mb-3"><label class="form-label" for="nic"><strong>NIC:&nbsp;</strong></label>
+                            <input class="form-control" type="text" id="nic" placeholder="751584753v" name="nic" maxlength="12" value="{{ $doctor->nic }}" required>
                         </div>
                         @error('NIC')
                             <span class="invalid-feedback" role="alert">
@@ -63,11 +63,11 @@
                     <div class="mb-3"><label class="form-label" for="gender"><strong>Gender:</strong><br></label>
                         <div class="form-group mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="service_client_payment_validated-2" name="gender" value="male" {{ $doctor->gender == 'male' ? 'checked' : '' }} required>
+                                <input class="form-check-input" type="radio" id="service_client_payment_validated-2" name="gender" value="Male" {{ $doctor->gender == 'male' ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="male">Male</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="service_client_payment_validated-1" name="gender" value="female" {{ $doctor->gender == 'female' ? 'checked' : '' }} required>
+                                <input class="form-check-input" type="radio" id="service_client_payment_validated-1" name="gender" value="Female" {{ $doctor->gender == 'female' ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="female">Female</label>
                             </div>
                             @error('gender')
@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="mb-3"><label class="form-label" for="specialization"><strong>"Specialization:</strong><br></label>
+                        <div class="mb-3"><label class="form-label" for="specialization"><strong>Specialization</strong><br></label>
                             <input class="form-control" type="text" id="specialization" placeholder="GCE A/L Qualified" name="specialization" value="{{ $doctor->specialization }}" required>
                         </div>
                         @error('specialization')

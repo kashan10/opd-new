@@ -3,25 +3,33 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class Appointment extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $order;
+   public $email;
+   public $subject;
+   public $body;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($email,$subject,$body)
     {
         //
+        $this->email = $email;
+        $this->subject=$subject;
+        $this->body = $body;
+        
     }
 
     /**
@@ -32,10 +40,15 @@ class Appointment extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Appointment',
+            from: new Address($this->email, 'Jeffrey Way'),
+            replyTo: [
+                new Address('kushanmaduraga10@gmail.com', 'Taylor Otwell'),
+            ],
+            subject: $this->subject,
         );
     }
 
+    
     /**
      * Get the message content definition.
      *
@@ -45,6 +58,10 @@ class Appointment extends Mailable
     {
         return new Content(
             view: 'emails.appointment',
+            with: [
+                'body' =>  $this->body,
+                
+            ],
         );
     }
 

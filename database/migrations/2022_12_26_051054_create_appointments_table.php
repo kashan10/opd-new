@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->text('form_content');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

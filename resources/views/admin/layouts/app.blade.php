@@ -144,49 +144,68 @@
             <div class="row" >
         <aside class="col w-25" style="height: 100%" > 
             <!-- ============= COMPONENT ============== -->
-            <nav class="sidebar card py-4 mb-3 mt-4 w-50">
-            <ul class="nav flex-column" id="nav_accordion" style="height: 100%">
-                
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item1" href="#"> Doctor <i class="bi small bi-caret-down-fill"></i> </a>
-                    <ul id="menu_item1" class="submenu collapse" data-bs-parent="#nav_accordion">
-                        <li><a class="nav-link" href="{{ route('doctor.index') }}">list </a></li>
-                        <li><a class="nav-link" href="{{ route('doctor.create') }}">Create </a></li>
-                    </ul>
-            
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item2" href="#"> Nurse <i class="bi small bi-caret-down-fill"></i> </a>
-                    <ul id="menu_item2" class="submenu collapse" data-bs-parent="#nav_accordion">
-                        <li><a class="nav-link" href="{{ route('nurse.index') }}">list </a></li>
-                        <li><a class="nav-link" href="{{ route('nurse.create') }}">Create </a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item3" href="#"> Roles <i class="bi small bi-caret-down-fill"></i> </a>
-                    <ul id="menu_item3" class="submenu collapse" data-bs-parent="#nav_accordion">
-                        <li><a class="nav-link" href="{{ route('roles.index') }}">list </a></li>
-                        <li><a class="nav-link" href="{{ route('roles.create') }}">Create </a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item4" href="#"> Users <i class="bi small bi-caret-down-fill"></i> </a>
-                    <ul id="menu_item4" class="submenu collapse" data-bs-parent="#nav_accordion">
-                        <li><a class="nav-link" href="{{ route('users.index') }}">list </a></li>
-                        <li><a class="nav-link" href="{{ route('users.create') }}">Create </a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item5" href="#"> Clinic <i class="bi small bi-caret-down-fill"></i> </a>
-                    <ul id="menu_item5" class="submenu collapse" data-bs-parent="#nav_accordion">
-                        <li><a class="nav-link" href="{{ route('clinic.index') }}">list </a></li>
-                        <li><a class="nav-link" href="{{ route('clinic.create') }}">Create </a></li>
-                    </ul>
-                </li>
-                
-            </ul>
-            </nav>
-            <!-- ============= COMPONENT END// ============== -->	
+             <!-- ============= COMPONENT ============== -->
+             <nav class="sidebar card py-4 mb-3 mt-4 w-50">
+                <ul class="nav flex-column" id="nav_accordion" style="height: 100%">
+    
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item1" href="#"> Clinic <i class="bi small bi-caret-down-fill"></i> </a>
+                        <ul id="menu_item1" class="submenu collapse" data-bs-parent="#nav_accordion">
+                            <li><a class="nav-link" href="{{ route('clinic.index') }}">Clinic Dates</a></li>
+                            <li><a class="nav-link" href="{{ route('clinic.create') }}">Add Clinic</a></li>
+                        </ul>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item2" href="#"> Appoinment <i class="bi small bi-caret-down-fill"></i> </a>
+                        <ul id="menu_item2" class="submenu collapse" data-bs-parent="#nav_accordion">
+                            <li><a class="nav-link" href="{{ route('appointment.index') }}">Doctor Staff</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item3" href="#"> Doctor <i class="bi small bi-caret-down-fill"></i> </a>
+                        <ul id="menu_item3" class="submenu collapse" data-bs-parent="#nav_accordion">
+                            <li><a class="nav-link" href="{{ route('doctor.index') }}">Doctor Staff</a></li>
+                            <li><a class="nav-link" href="{{ route('doctor.create') }}">Add Doctor</a></li>
+                        </ul>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item4" href="#"> Nurse <i class="bi small bi-caret-down-fill"></i> </a>
+                        <ul id="menu_item4" class="submenu collapse" data-bs-parent="#nav_accordion">
+                            <li><a class="nav-link" href="{{ route('nurse.index') }}">Nurse Staff</a></li>
+                            <li><a class="nav-link" href="{{ route('nurse.create') }}">Add Nurse</a></li>
+                        </ul>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item5" href="#"> Patient <i class="bi small bi-caret-down-fill"></i> </a>
+                        <ul id="menu_item5" class="submenu collapse" data-bs-parent="#nav_accordion">
+                            <li><a class="nav-link" href="{{ route('patient.index') }}">Patient Details</a></li>
+                            <li><a class="nav-link" href="{{ route('patient.create') }}">Add Patient</a></li>
+                        </ul>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item6" href="#"> Roles <i class="bi small bi-caret-down-fill"></i> </a>
+                        <ul id="menu_item6" class="submenu collapse" data-bs-parent="#nav_accordion">
+                            <li><a class="nav-link" href="{{ route('roles.index') }}">Role List</a></li>
+                            <li><a class="nav-link" href="{{ route('roles.create') }}">Add Role</a></li>
+                        </ul>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item7" href="#"> Users <i class="bi small bi-caret-down-fill"></i> </a>
+                        <ul id="menu_item7" class="submenu collapse" data-bs-parent="#nav_accordion">
+                            <li><a class="nav-link" href="{{ route('users.index') }}"> User Details</a></li>
+                            <li><a class="nav-link" href="{{ route('users.create') }}">Add User</a></li>
+                        </ul>
+                    </li>
+    
+                </ul>
+                </nav>
+                <!-- ============= COMPONENT END// ============== -->	
                     </aside>
         <main class="col-lg-9 py-4" style="height: 100%">
             
@@ -198,13 +217,18 @@
     </section>
 
     </div>
+   
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}" ></script>
-    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
     
+    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
+    @yield('tog-scripts')
+    @yield('search-scripts')
+    @yield('scripts')
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
+    
     <script>
       function load_unseen_notification(view = ''){
         $.ajaxSetup({
@@ -283,9 +307,9 @@
    
    
     
+   
     
-    
-    @yield('scripts')
+   
     
 </body>
 </html>

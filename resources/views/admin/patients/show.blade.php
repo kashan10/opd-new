@@ -5,11 +5,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('doctor.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('patient.index') }}"> Back</a>
             </div><br>
 
             <div class="pull-left">
-                <h2>Dr. {{ $duser->name }}</h2>
+                <h2>{{ $puser->name }}</h2>
             </div>
         </div>
     </div><br>
@@ -31,7 +31,7 @@
                                     <strong>NIC:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->nic }}
+                                    {{ $patient->nic }}
                                 </td>
                             </tr>
                         </div>
@@ -44,7 +44,7 @@
                                     <strong>Address:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->address }}
+                                    {{ $patient->address }}
                                 </td>
                             </tr>
                         </div>
@@ -57,7 +57,7 @@
                                     <strong>Age:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->age }}
+                                    {{ $patient->age }}
                                 </td>
                             </tr>
                         </div>
@@ -70,7 +70,7 @@
                                     <strong>Gender:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->gender }}
+                                    {{ $patient->gender }}
                                 </td>
                             </tr>
                         </div>
@@ -83,7 +83,7 @@
                                     <strong>Telephone No:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->phone }}
+                                    {{ $patient->phone }}
                                 </td>
                             </tr>
                         </div>
@@ -96,7 +96,7 @@
                                     <strong>Email:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->user->email }}
+                                    {{ $patient->user->email }}
                                 </td>
                             </tr>
                         </div>
@@ -106,27 +106,27 @@
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <strong>Position:</strong>
+                                    <strong>Blood Group:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->position }}
+                                    {{ $patient->bloodgroup }}
                                 </td>
                             </tr>
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-12">
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <tr>
                                 <td>
                                     <strong>Specialization:</strong>
                                 </td>
                                 <td>
-                                    {{ $doctor->specialization }}
+                                    {{ $patient->specialization }}
                                 </td>
                             </tr>
                         </div>
-                    </div>
+                    </div> -->
 
                     </table>
                     

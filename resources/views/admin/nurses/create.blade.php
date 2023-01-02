@@ -37,8 +37,8 @@
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="mb-3"><label class="form-label" for="NIC"><strong>NIC:&nbsp;</strong></label>
-                            <input class="form-control" type="text" id="NIC" placeholder="751584753v" name="nic" maxlength="12" required>
+                        <div class="mb-3"><label class="form-label" for="nic"><strong>NIC:&nbsp;</strong></label>
+                            <input class="form-control" type="text" id="nic" placeholder="751584753v" name="nic" maxlength="12" required>
                         </div>
                         @error('nic')
                             <span class="invalid-feedback" role="alert">

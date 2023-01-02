@@ -59,15 +59,19 @@ class AppointmentController extends Controller
         try {
 
             $start_time =Time::select('etime')
+                        ->where('clinic_id', '=', $id)
                         ->latest()
                         ->take(1)
                         ->get();
 
-        $start_time = json_decode(json_encode ( $start_time ) , true) ; 
-        $start_time = implode(',',$start_time[0]);
-
+            $start_time = json_decode(json_encode ( $start_time ) , true) ; 
+            $start_time = implode(',',$start_time[0]);
+           // dd($start_time);
         } catch (\Throwable $th) {
-            $start_time = Clinic::find($id)->start;
+            $start_time = Clinic::find($id);
+            $start_time = $start_time->date.' '.$start_time->start;
+            $start_time = json_decode(json_encode ( $start_time ) , true) ;
+           // dd($start_time);
         }
         
         
@@ -98,7 +102,7 @@ class AppointmentController extends Controller
         $treatment=Treatment::find($request->treatment);
       
         
-        $treatment_time = Carbon::createFromFormat('H:i', $request->stime)->addMinutes($treatment->time)->toDateTimeString();
+        $treatment_time = Carbon::createFromFormat('Y-m-d H:i:s', $request->stime)->addMinutes($treatment->time)->toDateTimeString();
         
         $appointment = new Appointment();
 
@@ -120,6 +124,7 @@ class AppointmentController extends Controller
         $time->appointment_id = $appointment->id;
         $time->stime = $request->stime;
         $time->etime = $treatment_time;
+        $time->clinic_id = $request->clinic;
         $time->save();
 
         // Incoming mail registration todo: I want to switch to database notification (Laravel)

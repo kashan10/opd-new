@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Mail\Appointment;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use MBarlow\Megaphone\Types\BaseAnnouncement;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -49,10 +50,11 @@ class MyCustomNotification extends BaseAnnouncement
      */
     public function toMail($notifiable)
     {   //dd('mail');
-        return (new Appointment())
-        ->to($notifiable->email)
-        ->subject($this->subject)
-        ->with(['body' => $this->body]);
+        //return (new Appointment($notifiable->email,$this->subject,$this->body));
+        return Mail::to('kushanmaduranga10@gmail.com')->send(new Appointment($notifiable->email,$this->subject,$this->body));
+        // ->to($notifiable->email)
+        // ->subject($this->subject)
+        // ->with(['body' => $this->body]);
     }
 
     /**
