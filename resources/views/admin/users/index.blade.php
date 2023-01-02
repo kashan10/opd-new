@@ -47,7 +47,7 @@
         <td>
           @if(!empty($user->getRoleNames()))
             @foreach($user->getRoleNames() as $v)
-              <label class="badge badge-success">{{ $v }}</label>
+              <label class="badge badge-pill badge-info" style="color: black">{{ $v }}</label>
             @endforeach
           @endif
         </td>
@@ -65,7 +65,35 @@
 
 
 {!! $data->render() !!}
-
+<script>
+  function myFunction() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+  
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+  </script>
+@endsection
+@section('tog-scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+   
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script>
   $(function() {
     $('.toggle-class').change(function() {
@@ -84,5 +112,4 @@
     })
   })
 </script>
-
-@endsection
+@stop

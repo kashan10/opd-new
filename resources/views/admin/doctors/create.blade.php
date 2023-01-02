@@ -29,17 +29,19 @@
                         <div class="mb-3"><label class="form-label" for="name"><strong>Name with Initials:&nbsp;</strong></label>
                             <input class="form-control" type="text" id="service_name" placeholder="A.B.C.Perera" name="name" required>
                         </div>
+
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="mb-3"><label class="form-label" for="NIC"><strong>NIC:&nbsp;</strong></label>
                             <input class="form-control" type="text" id="NIC" placeholder="751584753v" name="nic" maxlength="12" required>
                         </div>
+                        
                         @error('NIC')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -122,7 +124,7 @@
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="mb-3"><label class="form-label" for="qualification"><strong>"Specialization:</strong><br></label>
+                        <div class="mb-3"><label class="form-label" for="qualification"><strong>Specialization</strong><br></label>
                             <input class="form-control" type="text" id="qualification" placeholder="GCE A/L Qualified" name="specialization" required>
                         </div>
                         @error('specialization')

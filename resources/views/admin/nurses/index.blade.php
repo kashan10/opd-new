@@ -4,6 +4,10 @@
 <div class="container">
     @can('role-create')
         <div style="align:center">
+            <h2>Nurse Management</h2>
+        </div><br>
+
+        <div style="align:center">
             <a  class="btn btn-success" href="{{ route('nurse.create') }}"> Add New Nurse</a>
         </div>
      @endcan
@@ -26,13 +30,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label">
-                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label>
+                        <input type="search" id="myInput" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" onkeyup="myFunction()"></label>
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                <table class="table my-0" id="dataTable">
+                <table class="table my-0" id="myTable">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -51,18 +55,18 @@
                             
                             <td><img class="rounded-circle me-2" width="30" height="30" src="{{asset('images/'.$nurse->photo_path)}}">{{$nurse->name}}</td>
                             
-                            <td>{{$nurse->phone}}</td>
-                            
                             <td>{{$nurse->address}}</td>
+                            
+                            <td>{{$nurse->phone}}</td>
                          
                             
                             <td>     
                                 <a class="btn btn-xs btn-primary" href="{{ route('nurse.show',$nurse->id) }}">
-                                    view
+                                    View
                                 </a>
                             
                                 <a class="btn btn-xs btn-info" href="{{ route('nurse.edit',$nurse->id) }}">
-                                    edit 
+                                    Edit 
                                 </a>
                            
 
@@ -70,7 +74,7 @@
                                 <form action="{{ route('nurse.destroy',$nurse->user_id) }}" method="POST" onsubmit="" style="display: inline-block;">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-xs btn-danger" value="delete">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                                 </form>
                            </td>
                         </tr>
@@ -98,7 +102,7 @@
                 <div class="col-md-6">
                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                         <ul class="pagination">
-                             
+                            {!! $user_nurses->render() !!}
                         </ul>
                     </nav>
                 </div>
@@ -109,3 +113,28 @@
 </div>
 
 @endsection
+@section('search-scripts')
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
+@stop

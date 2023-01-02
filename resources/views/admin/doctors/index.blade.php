@@ -3,9 +3,13 @@
 @section('content')
 <div class="container-fluid">
     {{-- @can('doctor-create') --}}
-        <div style="align:center">
-            <a class="btn btn-success" href="{{ route('doctor.create') }}">Add New Doctor</a>
-        </div>
+    <div class="pull-left">
+        <h2>Doctor Management</h2><br>
+    </div>
+
+    <div style="align:center">
+        <a class="btn btn-success" href="{{ route('doctor.create') }}">Add New Doctor</a>
+    </div>
      {{-- @endcan --}}
      <br>
     <div class="card shadow">
@@ -17,6 +21,7 @@
                 <div class="col-md-6 text-nowrap">
                     <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
                         <label class="form-label">Show&nbsp;<select class="d-inline-block form-select form-select-sm">
+                            <option value="5">5</option>
                             <option value="10" selected="">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -26,7 +31,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label">
-                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" id="myInput" onkeyup="myFunction()"></label>
+                        <input type="search" id="myInput" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" onkeyup="myFunction()"></label>
                     </div>
                 </div>
             </div>
@@ -52,11 +57,11 @@
                             <td>{{$doctor->phone}}</td>
                             <td>     
                                 <a class="btn btn-xs btn-primary" href="{{ route('doctor.show',$doctor->id) }}">
-                                    view
+                                    View
                                 </a>
                             
                                 <a class="btn btn-xs btn-info" href="{{ route('doctor.edit',$doctor->id) }}">
-                                    edit 
+                                    Edit 
                                 </a>
                            
                                 
@@ -64,7 +69,7 @@
                                 <form action="{{ route('doctor.destroy',$doctor->user_id) }}" method="POST" onsubmit="" style="display: inline-block;">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-xs btn-danger" value="delete">
+                                    <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                                 </form>
                            </td>
                         </tr>
@@ -97,31 +102,30 @@
     </div>
 </div>
 </div>
-<script>
-    
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-</script>
 
 @endsection
+@section('search-scripts')
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
+@stop

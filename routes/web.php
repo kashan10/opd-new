@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppoinmentcheckController;
 use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('workplane', workplaneController::class);
     Route::get('appointment/{id}',[AppointmentController::class, 'create'])->name('appointment.create');
     Route::resource('appointment', AppointmentController::class,['except' => 'create']);
-
+    Route::resource('appcheck', AppoinmentcheckController::class);
 });
 
 //Auth routeeee

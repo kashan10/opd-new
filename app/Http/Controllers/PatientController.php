@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Patient;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
@@ -68,15 +72,14 @@ class PatientController extends Controller
 
         $user->save();
 
-        $patient = new patient;
+        $patient = new Patient;
         $patient->phone = $request->phone;
         $patient->address = $request->address;
         $patient->gender = $request->gender;
-        $patient->position = $request->position;
-        
         $patient->NIC = $request->nic;
         $patient->age = $request->age;
-        $patient->specialization = $request->specialization;
+        $patient->bloodgroup = $request->bloodgroup;
+        
 
         if($request->hasFile('file')) {
             $imageName = time().'.'.$request->file->extension();  
@@ -95,8 +98,6 @@ class PatientController extends Controller
                             ->with('success','Patient created successfully.');
         }
 
-    
-
     /**
      * Display the specified resource.
      *
@@ -105,11 +106,11 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //show doctors
-        $patient=patient::find($id);
+        //
+        $patient=Patient::find($id);
         $puser=$patient->user;
 
-        return view('admin.patient.show',compact('patient','puser'));
+        return view('admin.patients.show',compact('patient','puser'));
     }
 
     /**
@@ -121,7 +122,7 @@ class PatientController extends Controller
     public function edit($id)
     {
         //
-        $patient=Pateint::find($id);
+        $patient=Patient::find($id);
         // $puser=$patient->user;
         
         return view('admin.patients.edit',compact('patient'));
@@ -153,7 +154,6 @@ class PatientController extends Controller
             $user->password = Hash::make($request->password);
         }else{
             $user = Arr::except($user, ['password']);
-            
         }
 
         $user->update();
@@ -162,21 +162,21 @@ class PatientController extends Controller
         $patient->phone = $request->phone;
         $patient->address = $request->address;
         $patient->gender = $request->gender;
-        $patient->position = $request->position;
+        // $patient->position = $request->position;
         
         $patient->NIC = $request->nic;
         $patient->age = $request->age;
-        $patient->specialization = $request->specialization;
+        $patient->bloodgroup = $request->bloodgroup;
 
         if($request->hasFile('file')) {
             $imageName = time().'.'.$request->file->extension();  
            
             $request->file->move(public_path('images'), $imageName);
     
-            $doctor->photo_path = $imageName;
+            $patient->photo_path = $imageName;
             }
             
-            $user->parent()->update($patient->toArray());
+            $user->patient()->update($patient->toArray());
     
             // DB::table('model_has_roles')->where('model_id',$id)->delete();
         

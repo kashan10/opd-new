@@ -9,7 +9,7 @@
          </div><br>
 
         <div class="d-sm-flex justify-content-between align-items-center mb-4">
-            <h3 class="text-dark mb-0">nurse Details</h3>
+            <h3 class="text-dark mb-0">Nurse Details</h3>
         </div>
     </div>
 
@@ -21,7 +21,7 @@
         @method('PUT')
         <div class="card shadow mb-3">
                 <div class="card-header py-3">
-                    <p class="text-primary m-0 fw-bold" style="align:center">nurse Registration</p>
+                    <p class="text-primary m-0 fw-bold" style="align:center">Nurse Registration</p>
                 </div>
 
                 <div class="card-body" style="margin-bottom: 5px; padding-bottom: 0px;">
@@ -39,7 +39,7 @@
 
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="mb-3"><label class="form-label" for="NIC"><strong>NIC:&nbsp;</strong></label>
-                            <input class="form-control" type="text" id="NIC" placeholder="751584753v" name="nic" maxlength="12" value="{{ $nurse->NIC }}" required>
+                            <input class="form-control" type="text" id="NIC" placeholder="751584753v" name="nic" maxlength="12" value="{{ $nurse->nic }}" required>
                         </div>
                         @error('NIC')
                             <span class="invalid-feedback" role="alert">
@@ -123,8 +123,8 @@
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="mb-3"><label class="form-label" for="specialization"><strong>"Specialization:</strong><br></label>
-                            <input class="form-control" type="text" id="specialization" placeholder="GCE A/L Qualified" name="specialization" value="{{ $nurse->specialization }}" required>
+                        <div class="mb-3"><label class="form-label" for="qualification"><strong>Qualification:</strong><br></label>
+                            <input class="form-control" type="text" id="qualification" placeholder="GCE A/L Qualified" name="qualification" value="{{ $nurse->qualification }}" required>
                         </div>
                         @error('specialization')
                         <span class="invalid-feedback" role="alert">

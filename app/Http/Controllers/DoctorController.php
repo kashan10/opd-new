@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-
 class DoctorController extends Controller
 {
     /**
@@ -22,16 +21,12 @@ class DoctorController extends Controller
         //
     //page field is defined in the request
    $user_doctors = DB::table('users')
-            ->join('doctors', 'users.id', '=', 'doctors.user_id')
-            ->where('status', '=', 1)
-            ->select('users.*', 'doctors.*')
-            ->paginate(5);
+        ->join('doctors', 'users.id', '=', 'doctors.user_id')
+        ->where('status', '=', 1)
+        ->select('users.*', 'doctors.*')
+        ->paginate(5);
             
           
-        
-       
-        
-   
    // $nurses = Nurse::latest()->paginate(5);
     return view('admin.doctors.index',compact('user_doctors'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -175,7 +170,6 @@ class DoctorController extends Controller
             $user->password = Hash::make($request->password);
         }else{
             $user = Arr::except($user, ['password']);
-            
         }
 
         $user->update();

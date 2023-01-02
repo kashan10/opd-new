@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Nurse;
 use App\Models\Clinic;
 use App\Models\Doctor;
-use App\Models\Nurse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ClinicController extends Controller
@@ -73,8 +74,8 @@ class ClinicController extends Controller
      
         
         $clinic->date = $request->date;
-        $clinic->start = $request->start;
-        $clinic->end = $request->end;
+        $clinic->start = Carbon::createFromFormat('H:i', $request->start)->toTimeString();
+        $clinic->end = Carbon::createFromFormat('H:i', $request->end)->toTimeString();
         $clinic->name = $request->name;
        
 

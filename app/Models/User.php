@@ -7,6 +7,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use MBarlow\Megaphone\HasMegaphone;
 use Spatie\Permission\Traits\HasRoles;
+use \Illuminate\Support\Collection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,19 +65,19 @@ class User extends Authenticatable
        return $this->hasOne(Systemoperetor::class);
     }
 
-    public function doctorClinic()
-    {
-        return $this->hasOneThrough(
-            Clinic::class, 
-            Doctor::class,
-            'user_id',
-            'doctor_id',
-            'id',
-            'id'
+    // public function doctorClinic()
+    // {
+    //     return $this->hasManyThrough(
+    //         Clinic::class, 
+    //         Doctor::class,
+    //         'user_id',
+    //         'doctor_id',
+    //         'id',
+    //         'id'
 
         
-        );
-    }
+    //     );
+    // }
     // public function role()
     // {
     //     return $this->belongsTo(Role::class);

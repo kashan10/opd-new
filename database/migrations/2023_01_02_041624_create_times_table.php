@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('times', function (Blueprint $table) {
             $table->id();
             $table->foreignId("appointment_id")->constrained("appointments");
+            $table->foreignId("clinic_id")->constrained("clinics");
             $table->string('stime');
             $table->string('etime');
             $table->integer('status')->default(0);
