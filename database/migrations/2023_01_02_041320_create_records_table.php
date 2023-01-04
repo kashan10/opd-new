@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id();   
-            $table->foreignId('patients_id')->constrained("patients");
+            $table->foreignId('patient_id')->constrained("patients");
             $table->foreignId("appointment_id")->constrained("appointments");
-            $table->foreignId("patient_id")->constrained("patients");
             $table->string("prescriptons");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

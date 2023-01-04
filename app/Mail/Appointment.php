@@ -14,22 +14,18 @@ class Appointment extends Mailable
 {
     use Queueable, SerializesModels;
 
-   public $email;
-   public $subject;
-   public $body;
+    public $mailData;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email,$subject,$body)
+    public function __construct($mailData)
     {
         //
-        $this->email = $email;
-        $this->subject=$subject;
-        $this->body = $body;
-        
+        $this->mailData = $mailData;
+       
     }
 
     /**
@@ -37,41 +33,47 @@ class Appointment extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Envelope
      */
-    public function envelope()
-    {
-        return new Envelope(
-            from: new Address($this->email, 'Jeffrey Way'),
-            replyTo: [
-                new Address('kushanmaduraga10@gmail.com', 'Taylor Otwell'),
-            ],
-            subject: $this->subject,
-        );
-    }
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         from: new Address($this->email, 'Jeffrey Way'),
+    //         replyTo: [
+    //             new Address('kushanmaduraga10@gmail.com', 'Taylor Otwell'),
+    //         ],
+    //         subject: $this->subject,
+    //     );
+    // }
 
     
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'emails.appointment',
-            with: [
-                'body' =>  $this->body,
+    // /**
+    //  * Get the message content definition.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Content
+    //  */
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'emails.appointment',
+    //         with: [
+    //             'body' =>  $this->body,
                 
-            ],
-        );
-    }
+    //         ],
+    //     );
+    // }
 
     /**
      * Get the attachments for the message.
      *
      * @return array
      */
-    public function attachments()
+    // public function attachments()
+    // {
+    //     return [];
+    // }
+
+    public function build()
     {
-        return [];
+        return $this->subject('Mail from ItSolutionStuff.com')
+                    ->view('emails.appointment');
     }
 }

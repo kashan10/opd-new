@@ -51,7 +51,11 @@ class MyCustomNotification extends BaseAnnouncement
     public function toMail($notifiable)
     {   //dd('mail');
         //return (new Appointment($notifiable->email,$this->subject,$this->body));
-        return Mail::to('kushanmaduranga10@gmail.com')->send(new Appointment($notifiable->email,$this->subject,$this->body));
+        $mailData = [
+            'title' => $this->subject,
+            'body' => $this->body
+        ];
+        return Mail::to('kushanmaduranga10@gmail.com')->send(new Appointment($mailData));
         // ->to($notifiable->email)
         // ->subject($this->subject)
         // ->with(['body' => $this->body]);
