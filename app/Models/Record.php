@@ -10,12 +10,16 @@ class Record extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $fillable = [
+        'appointment_id', 'patient_id' ,'prescriptons'
+    ];
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);
     }
     public function Appoinment()
     {
-        return $this->belongsTo(Record::class);
+        return $this->belongsTo(Appointment::class);
     }
 }

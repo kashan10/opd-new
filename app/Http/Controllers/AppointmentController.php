@@ -90,6 +90,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        //dd(User::find(Auth::id())->patient->id);
         //
         
 
@@ -108,7 +109,7 @@ class AppointmentController extends Controller
 
         $appointment->start = $request->start;
         $appointment->end = $treatment_time;
-        $appointment->patient_id = Auth::id();
+        $appointment->patient_id = User::find(Auth::id())->patient->id;
         $appointment->treatment_id = $treatment->id;
         $appointment->note = $request->note;
         $appointment->way = $request->way;

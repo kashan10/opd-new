@@ -1,18 +1,20 @@
 <?php
 
-use App\Http\Controllers\AppoinmentcheckController;
-use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\RecordController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TypeaheadController;
 use App\Http\Controllers\workplaneController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AppoinmentcheckController;
 
 
 /*
@@ -42,6 +44,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('appointment/{id}',[AppointmentController::class, 'create'])->name('appointment.create');
     Route::resource('appointment', AppointmentController::class,['except' => 'create']);
     Route::resource('appcheck', AppoinmentcheckController::class);
+    Route::resource('record', RecordController::class);
 });
 
 //Auth routeeee
@@ -58,3 +61,5 @@ Route::get('/nurselist', [TypeaheadController::class, 'nurselist']);
 
 Route::get('/doctorlist', [TypeaheadController::class, 'doctorlist']);
 Route::post('/no', [TypeaheadController::class, 'notif']);
+
+Route::get('/generate-pdf',[PDFController::class,'generatePDF']);

@@ -20,29 +20,19 @@ class AppoinmentcheckController extends Controller
     public function index()
     {   $user=User::find(Auth::id());
        
-       if ($user->hasRole('Admin')) {
+       if ($user->hasRole('admin')) {
         # Admin...
         $clinics = Clinic::latest()->paginate(5);
 
-       } elseif ($user->hasRole('Doctor')) {
+       } elseif ($user->hasRole('doctor')) {
         
         # doctor...
-        $clinics = Clinic::addSelect(['doctor_id' => $user
-                                                        ->Doctor()
-                                                        ->select('id')
-                                                        ->limit(1)
-                                            ])->get();
+        $clinics =$user->doctor->clinic;
 
        } elseif ($user->hasRole('nurse')) {
-       // dd("hi");
         # nurse...
-        $clinics = Clinic::addSelect(['nurse_id' => $user
-                                                    ->nurse()
-                                                    ->select('id')
-                                                    ->where('user_id','=',Auth::id())
-                                                    ->limit(1)
-                                            ])->get();
-                                            dd($clinics);                                    
+        $clinics =$user->nurse->clinic;
+                                          
        } else {
         # partition...
         $appoinment =  Appointment::latest()->paginate(5);
@@ -51,13 +41,6 @@ class AppoinmentcheckController extends Controller
 
        }
        
-        //partition
-        //  $appoinment = ($user->hasRole('Admin')) ? Appointment::latest()->paginate(5) : (($user->hasRole('Doctor')) ? User::find(Auth::id())->latest()->paginate(5) : (($user->hasRole('Nurse')) ? Appointment::latest()->paginate(5) : Appointment::latest()->paginate(5) ) );
-
-        // //doctor
-        
-        // $appoinment =$user->Doctor()->select('id')->get();
-        //dd($clinics);
 
         $events = [];
 
@@ -110,7 +93,12 @@ class AppoinmentcheckController extends Controller
      */
     public function show($id)
     {
+        $appoinment= Appointment::where('clinic_id','=',$id)
+                                ->paginate(5);
+        //dd($appoinment);
         //
+        return view('admin.appoinment.list',compact('appoinment'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
